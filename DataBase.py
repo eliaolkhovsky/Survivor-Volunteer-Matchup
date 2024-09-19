@@ -1,8 +1,6 @@
 import json
 import json as js
 
-import geographics
-
 # consts
 SURVIVOR = "survivor"
 VOLUNTEER = "volunteer"
@@ -49,7 +47,7 @@ BOB = {"first_name": "Bob",
        "last_name": "boblovsky",
        "id": "328273784",
        "Gender": MALE,
-       "Location": "32.7940, 34.9896",
+       "Location": "0213.11325,565.89786",
        "Age": 57,
        "profile": SURVIVOR,
        "Skills": [],
@@ -59,7 +57,7 @@ LINA = {"first_name": "Alina",
         "last_name": "Segal",
         "id": "21656548",
         "Gender": FEMALE,
-        "Location": "32.0853, 34.7818",
+        "Location": "2165.18548,84654.8489",
         "Age": 45,
         "profile": SURVIVOR,
         "Skills": [],
@@ -69,7 +67,7 @@ DAN = {"first_name": "Dan",
        "last_name": "Hefetz",
        "id": "146165454",
        "Gender": MALE,
-       "Location": "31.7683, 35.2137",
+       "Location": "216165.45487,132154.4554",
        "Age": 19,
        "profile": VOLUNTEER,
        "Skills": [TECH],
@@ -86,17 +84,8 @@ BOS_POST = {"user": BOB,
             "need professional": True,
             }
 
-BOS2_POST = {"user": LINA,
-             "hours": (1200, 1600),
-             "complaint": "MHFFFGJBSLSHERGBPOEHIBR "
-                          "seh;kse[oijre[ghiqn[urr  GHIEWUBNGOQYUHBR8",
-             "title": "My wife is a bitch",
-             "type of problem": MENTAL,
-             "need professional": True,
-             }
-
 # variables
-posts = [BOS_POST, BOS2_POST]
+posts = [BOS_POST]
 
 
 def save_users():
@@ -126,10 +115,5 @@ data = load_posts()
 print(data)
 
 
-def filter_posts_by_distance(data, user):
-    return sorted(data,
-           key=lambda post: geographics.get_distance(post['user']['Location'], user["Location"]), )
-
-
-save_posts()
-print(filter_posts_by_distance(data, DAN))
+def filter_posts(data):
+    pass
