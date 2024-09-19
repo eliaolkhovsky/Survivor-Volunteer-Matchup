@@ -105,3 +105,6 @@ save_users()
 data = load_users()
 print(data)
 
+def filter_posts(data):
+    pass
+
