@@ -1,3 +1,6 @@
+import json
+import json as js
+
 # consts
 SURVIVOR = "survivor"
 VOLUNTEER = "volunteer"
@@ -5,6 +8,13 @@ NEED_PROF = "yes"
 NOT_NEED_PROF = "no"
 MALE = "m"
 FEMALE = "f"
+
+# database files
+USERS_DIRECTORY = "Users\\"
+POSTS_DIRECTORY = "Posts\\"
+
+USERS_FILE = USERS_DIRECTORY + "users.json"
+POSTS_FILE = POSTS_DIRECTORY + "posts.json"
 
 GROCERIES = "groceries"
 MED = "medical"
@@ -68,5 +78,30 @@ DAN = {"first_name": "Dan",
 USERS = [BOB, LINA, DAN]
 
 
+# variables
+posts = []
 
+
+def save_users():
+    with open(USERS_FILE, "w") as usersData:
+        json.dump(USERS, usersData)
+
+
+def load_users():
+    with open(USERS_FILE, "r") as userData:
+        db = json.load(userData)
+    return db
+
+
+def save_posts():
+    pass
+
+
+def load_posts():
+    pass
+
+
+save_users()
+data = load_users()
+print(data)
 
