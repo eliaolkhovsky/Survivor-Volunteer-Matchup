@@ -1,49 +1,139 @@
-import pygame
-import pygame_gui
-import consts
+import tkinter as tk
+from tkinter import ttk
+import Window
 
-pygame.init()
+# main window
+root = tk.Tk()
+root.title("התנדבות למען ניצולי שואה")
+root.geometry(f"{Window.WINDOW_WIDTH}x{Window.WINDOW_HEIGHT}")
+root.configure(bg="#e6f2ff")
 
-pygame.display.set_caption('Volunteer app')
+# canvas
+canvas = tk.Canvas(root, bg="#e6f2ff")
+scrollbar = ttk.Scrollbar(root, orient="vertical", command=canvas.yview)
+scrollable_frame = tk.Frame(canvas, bg="#e6f2ff")
 
-menu_screen = pygame.display.set_mode((800, 600))
+scrollable_frame.bind(
+    "<Configure>",
+    lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+)
 
-background = pygame.Surface((800, 600))
+canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+canvas.configure(yscrollcommand=scrollbar.set)
 
-background.fill(pygame.Color(consts.WHITE))
-manager = pygame_gui.UIManager((800, 600))
-
-volunteer = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((450, 175), (200, 200)),
-                                            text='VOLUNTEER',
-                                            manager=manager)
-font = pygame.font.SysFont('Calibri', 50)
-img = font.render('Welcome to holocaust volunteer app!', True, consts.BLACK)
-
-survivor = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((150, 175), (200, 200)),
-                                            text='SURVIVOR',
-                                            manager=manager)
+canvas.pack(side="left", fill="both", expand=True)
+scrollbar.pack(side="right", fill="y")
 
 
-clock = pygame.time.Clock()
-is_running = True
+# write from right to left
+def set_rtl(widget):
+    widget.config(justify="right", anchor="e")
 
-while is_running:
-    time_delta = clock.tick(60) / 1000.0
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            is_running = False
+# write in text box
+def round_entry(entry):
+    entry.config(relief="solid", bd=2, highlightthickness=1, highlightbackground="#ccc", highlightcolor="#66b2ff")
 
-        if event.type == pygame_gui.UI_BUTTON_PRESSED:
-            if event.ui_element == volunteer:
-                print('Hello World!')
 
-        manager.process_events(event)
+# כותרת עליונה עם רקע צבעוני
+title = tk.Label(scrollable_frame, text=" !ברוך הבא לדף ההתנדבות למען ניצולי שואה ", font=("Arial", 24, "bold"),
+                 bg="#3b5998", fg="white")
+set_rtl(title)
+title.pack(fill="x", pady=20)
 
-    manager.update(time_delta)
+# תיבת טקסט להוספת שם פרטי ושם משפחה
+name_frame = tk.Frame(scrollable_frame, bg="#e6f2ff")
+name_frame.pack(pady=10, padx=20, anchor="e")
 
-    menu_screen.blit(background, (0, 0))
-    menu_screen.blit(img, (30, 20))
-    manager.draw_ui(menu_screen)
+first_name_label = tk.Label(name_frame, text=":שם פרטי", font=("Arial", 14), bg="#e6f2ff")
+set_rtl(first_name_label)
+first_name_label.grid(row=0, column=1, padx=10)
+first_name_entry = tk.Entry(name_frame, width=25, justify="right", bd=2)
+round_entry(first_name_entry)
+first_name_entry.grid(row=0, column=0)
 
-    pygame.display.update()
+last_name_label = tk.Label(name_frame, text=":שם משפחה", font=("Arial", 14), bg="#e6f2ff")
+set_rtl(last_name_label)
+last_name_label.grid(row=1, column=1, padx=10)
+last_name_entry = tk.Entry(name_frame, width=25, justify="right", bd=2)
+round_entry(last_name_entry)
+last_name_entry.grid(row=1, column=0)
+
+# תיבת טקסט להוספת מקום מגורים
+city_label = tk.Label(name_frame, text=":מקום מגורים", font=("Arial", 14), bg="#e6f2ff")
+set_rtl(city_label)
+city_label.grid(row=2, column=1, padx=10)
+city_entry = tk.Entry(name_frame, width=25, justify="right", bd=2)
+round_entry(city_entry)
+city_entry.grid(row=2, column=0)
+
+# בחירת מגדר
+gender_label = tk.Label(scrollable_frame, text=":בחר מגדר", font=("Arial", 14), bg="#e6f2ff")
+set_rtl(gender_label)
+gender_label.pack(pady=10, anchor="e")
+
+gender_frame = tk.Frame(scrollable_frame, bg="#e6f2ff")
+gender_frame.pack(anchor="e", padx=20)
+
+gender_var = tk.StringVar(value="")
+male_checkbox = tk.Radiobutton(gender_frame, text="זכר", variable=gender_var, value="זכר", bg="#e6f2ff",
+                               font=("Arial", 12), anchor="w")
+female_checkbox = tk.Radiobutton(gender_frame, text="נקבה", variable=gender_var, value="נקבה", bg="#e6f2ff",
+                                 font=("Arial", 12), anchor="w")
+
+male_checkbox.grid(row=0, column=2, padx=10)
+female_checkbox.grid(row=0, column=1, padx=10)
+
+# סקרולר גילאים
+age_label = tk.Label(scrollable_frame, text=":גיל", font=("Arial", 14), bg="#e6f2ff")
+set_rtl(age_label)
+age_label.pack(pady=10, anchor="e")
+
+age_spinbox = tk.Spinbox(scrollable_frame, from_=1, to=99, width=10, justify="right", font=("Arial", 12))
+age_spinbox.pack(pady=5, anchor="e")
+
+# תיבת טקסט לבעיות שעלולות להיווצר
+problems_label = tk.Label(scrollable_frame, text="?באיזו בעיה תרצה לעזור", font=("Arial", 14), bg="#e6f2ff")
+set_rtl(problems_label)
+problems_label.pack(pady=10, anchor="e")
+
+# רשימת בעיות נפוצות לניצולי שואה מבוגרים עם צבעים
+scroll_frame = tk.Frame(scrollable_frame, bg="#e6f2ff")
+scroll_frame.pack(fill="both", expand=True, pady=10, padx=20)
+
+scrollbar = tk.Scrollbar(scroll_frame)
+scrollbar.pack(side="left", fill="y")
+
+listbox = tk.Listbox(scroll_frame, yscrollcommand=scrollbar.set, height=5, justify="right", font=("Arial", 12), bd=2,
+                     activestyle="dotbox")
+problems = [
+    "בעיות טכנולוגיות: שימוש במחשב, טלפון נייד, אינטרנט",
+    "בעיות בריאותיות: סיוע במילוי טפסים רפואיים, שימוש בציוד רפואי",
+    "בדידות חברתית: עידוד ושיחות טלפון",
+    "סיוע במילוי טפסים רשמיים",
+    "תמיכה נפשית וחברתית"
+]
+
+for problem in problems:
+    listbox.insert("end", problem)
+listbox.pack(side="right", fill="both", expand=True)
+
+scrollbar.config(command=listbox.yview)
+
+# כפתור שלח עם רקע צבעוני
+button = tk.Button(scrollable_frame, text="שלח", font=("Arial", 14), bg="#28a745", fg="white", command=lambda: print(
+    f"שם פרטי: {first_name_entry.get()}, שם משפחה: {last_name_entry.get()}, מקום מגורים: {city_entry.get()}, גיל: {age_spinbox.get()}, מגדר: {gender_var.get()}, בעיה: {listbox.get(listbox.curselection())}"))
+button.pack(pady=20, padx=20, ipadx=10, ipady=5)
+
+# Checkbox to indicate if the user is a volunteer or needs help
+status_var = tk.StringVar()
+volunteer_checkbox = tk.Checkbutton(scrollable_frame, text="אני מתנדב", variable=status_var, onvalue="מתנדב",
+                                    offvalue="זקוק לעזרה", bg="#e6f2ff", font=("Arial", 12), anchor="w")
+volunteer_checkbox.pack(pady=5, anchor="e")
+
+# הוספת המון אובייקטים נוספים להדגמה של גלילה
+for i in range(50):
+    tk.Label(scrollable_frame, text=f"אובייקט נוסף {i + 1}", font=("Arial", 12), bg="#e6f2ff").pack(pady=5)
+
+# התחלת הלולאה הראשית
+root.mainloop()

@@ -115,5 +115,21 @@ data = load_posts()
 print(data)
 
 
-def filter_posts(data):
-    pass
+def filter_posts_by_problem(posts, problem_type):
+    return [post for post in posts if post["type of problem"] == problem_type]
+
+
+def filter_posts_by_age(posts, age):
+    return [post for post in posts if post["user"]["Age"] == age]
+
+
+def filter_posts_by_gender(posts, gender):
+    return [post for post in posts if post["user"]["gender"] == gender]
+
+
+def filter_posts_by_hours(posts, hours):
+    return [post for post in posts if post["hours"] == hours]
+
+
+def filter_posts_need_pro(posts):
+    return [post for post in posts if post["need professional"]]
