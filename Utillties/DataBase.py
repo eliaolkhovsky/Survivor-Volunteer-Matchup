@@ -1,6 +1,4 @@
 import json
-import json as js
-import geographics
 
 # consts
 SURVIVOR = "survivor"
