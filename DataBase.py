@@ -109,11 +109,3 @@ def load_posts():
         db = json.load(postData)
     return db
 
-
-save_posts()
-data = load_posts()
-print(data)
-
-
-def filter_posts(data):
-    pass
