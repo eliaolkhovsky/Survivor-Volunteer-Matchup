@@ -1,5 +1,6 @@
 import json
 import json as js
+import geographics
 
 # consts
 SURVIVOR = "survivor"
@@ -109,26 +110,3 @@ def load_posts():
         db = json.load(postData)
     return db
 
-
-def filter_posts_by_location(dt, location):
-    return sorted(dt, key=lambda post: geographics.get_distance(post['user']['Location'], location))
-
-
-def filter_posts_by_problem(posts, problem_type):
-    return [post for post in posts if post["type of problem"] == problem_type]
-
-
-def filter_posts_by_age(posts, age):
-    return [post for post in posts if post["user"]["Age"] == age]
-
-
-def filter_posts_by_gender(posts, gender):
-    return [post for post in posts if post["user"]["gender"] == gender]
-
-
-def filter_posts_by_hours(posts, hours):
-    return [post for post in posts if post["hours"] == hours]
-
-
-def filter_posts_need_pro(posts):
-    return [post for post in posts if post["need professional"]]
