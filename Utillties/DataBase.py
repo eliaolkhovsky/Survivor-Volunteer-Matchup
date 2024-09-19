@@ -85,7 +85,7 @@ BOB_POST = {"user": BOB,
 
 # variables
 posts = [BOB_POST]
-
+current_user = DAN
 
 def save_users():
     with open(USERS_FILE, "w") as usersData:
@@ -107,4 +107,5 @@ def load_posts():
     with open(POSTS_FILE, "r") as postData:
         db = json.load(postData)
     return db
+
 

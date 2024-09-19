@@ -1,66 +1,94 @@
-def log_user():
-    pass
+import eel
+
 from Utillties import DataBase, geographics
 import pyttsx3
+
+eel.init("web")
+
+
+# Exposing the random_python function to javascript
+@eel.expose
+def is_eldery():
+    global post
+    return DataBase.current_user["profile"] == DataBase.SURVIVOR
+
+
+def log_user():
+    pass
+
 
 # variables
 post = None
 
 
+@eel.expose
 def filter_posts_by_location(dt, location):
     return sorted(dt, key=lambda post: geographics.get_distance(post['user']['Location'], location))
 
 
+@eel.expose
 def filter_posts_by_problem(posts, problem_type):
-    return [post for post in posts if post["type of problem"] == problem_type]
+    return [p for p in posts if p["type of problem"] == problem_type]
 
 
+@eel.expose
 def filter_posts_by_age(posts, age):
-    return [post for post in posts if post["user"]["Age"] == age]
+    return [p for p in posts if p["user"]["Age"] == age]
 
 
+@eel.expose
 def filter_posts_by_gender(posts, gender):
-    return [post for post in posts if post["user"]["gender"] == gender]
+    return [p for p in posts if p["user"]["gender"] == gender]
 
 
+@eel.expose
 def filter_posts_by_hours(posts, hours):
-    return [post for post in posts if post["hours"] == hours]
+    return [p for p in posts if p["hours"] == hours]
 
 
+@eel.expose
 def filter_posts_need_pro(posts):
-    return [post for post in posts if post["need professional"]]
+    return [p for p in posts if p["need professional"]]
 
 
+@eel.expose
 def create_empty_post():
     global post
     post = dict()
 
 
-def add_title(post, title):
+@eel.expose
+def add_title(title):
     post["title"] = title
 
 
-def add_hours(post, hours):
+@eel.expose
+def add_hours(hours):
     post["hours"] = hours
 
 
-def add_complaint(post, complaint):
+@eel.expose
+def add_complaint(complaint):
     post["complaint"] = complaint
 
 
-def add_user(post, user):
+@eel.expose
+def add_user(user):
     post["user"] = user
 
 
-def add_type_of_problem(post, type_of_problem):
+@eel.expose
+def add_type_of_problem(type_of_problem):
     post["type of problem"] = type_of_problem
 
 
-def add_need_professional(post, need_professional):
+@eel.expose
+def add_need_professional(need_professional):
     post["need professional"] = need_professional
 
 
-def submit_post(post):
+@eel.expose
+def submit_post():
     if len(post) != len(DataBase.BOB_POST):
         return
     for keys in post:
@@ -69,7 +97,13 @@ def submit_post(post):
     DataBase.posts.append(post)
 
 
+@eel.expose
 def txt_to_speech(word):
+    global post
     engine = pyttsx3.init()
     engine.say(word)
     engine.runAndWait()
+
+
+# Start the index.html file
+eel.start("index.html")
