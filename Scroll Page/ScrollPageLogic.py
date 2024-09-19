@@ -1,5 +1,4 @@
-import geographics
-import DataBase
+from Utillties import DataBase, geographics
 import pyttsx3
 
 # variables
