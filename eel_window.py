@@ -105,5 +105,33 @@ def txt_to_speech(word):
     engine.runAndWait()
 
 
+@eel.expose
+def valid_user(username, password):
+
+
+
+@eel.expose
+def sign_up(username, password):
+    DataBase.load_users()
+    valid = not any([])
+
+    if valid_user(username, password):
+        newUser = {"first_name": "",
+                   "user_name": username,
+                   "password": password,
+                   "last_name": "",
+                   "id": "",
+                   "Gender": "",
+                   "Location": "",
+                   "Age": 0,
+                   "profile": "",
+                   "Skills": [],
+                   "matched": []
+                   }
+        DataBase.posts.append(newUser)
+        DataBase.save_users()
+
+
+
 # Start the index.html file
-eel.start("index.html")
+eel.start("sign_in_page.html")

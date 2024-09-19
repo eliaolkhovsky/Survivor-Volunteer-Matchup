@@ -23,6 +23,8 @@ TYPES_OF_PROBLEMS = [GROCERIES, MED, TECH, MENTAL, TREMP]
 # Example Users
 '''
 user = {"first_name": "",
+        "user_name": "",
+        "password": "",
         "last_name": "",
         "id": "",
         "Gender": "",
@@ -44,6 +46,8 @@ post = {"user": user,
 
 BOB = {"first_name": "Bob",
        "last_name": "boblovsky",
+       "username": "bobthesexy",
+       "password": "AADFBGHtbjkwrhjhjhvf64356454@@@#$%",
        "id": "328273784",
        "Gender": MALE,
        "Location": "0213.11325,565.89786",
@@ -54,6 +58,8 @@ BOB = {"first_name": "Bob",
        }
 LINA = {"first_name": "Alina",
         "last_name": "Segal",
+        "username": "linathewristcutter",
+        "password": "sujmnf6ygtr6666A@",
         "id": "21656548",
         "Gender": FEMALE,
         "Location": "2165.18548,84654.8489",
@@ -64,6 +70,8 @@ LINA = {"first_name": "Alina",
         }
 DAN = {"first_name": "Dan",
        "last_name": "Hefetz",
+       "username": "danik",
+       "password": "A@dasdw5465",
        "id": "146165454",
        "Gender": MALE,
        "Location": "216165.45487,132154.4554",
@@ -72,7 +80,6 @@ DAN = {"first_name": "Dan",
        "Skills": [TECH],
        "matched": [LINA]
        }
-USERS = [BOB, LINA, DAN]
 
 BOB_POST = {"user": BOB,
             "hours": (1200, 1600),
@@ -85,17 +92,20 @@ BOB_POST = {"user": BOB,
 
 # variables
 posts = [BOB_POST]
+users = [BOB, LINA, DAN]
 current_user = DAN
+
 
 def save_users():
     with open(USERS_FILE, "w") as usersData:
-        json.dump(USERS, usersData)
+        json.dump(users, usersData)
 
 
 def load_users():
+    global users
     with open(USERS_FILE, "r") as userData:
         db = json.load(userData)
-    return db
+    users = db
 
 
 def save_posts():
@@ -104,8 +114,7 @@ def save_posts():
 
 
 def load_posts():
+    global posts
     with open(POSTS_FILE, "r") as postData:
         db = json.load(postData)
-    return db
-
-
+    posts = db

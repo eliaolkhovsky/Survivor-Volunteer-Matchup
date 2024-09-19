@@ -1,6 +1,7 @@
 import tkinter as tk
 import Window
 from tkinter import ttk
+import ScrollPageLogic as sl
 
 # main window
 root = tk.Tk()
@@ -58,7 +59,6 @@ listbox = tk.Listbox(scroll_frame, yscrollcommand=scrollbar.set, height=7, width
                     font=("Arial", 12), bd=2,
                     activestyle="dotbox")
 problems = [
-   "Technological Issues: Using a computer, mobile phone, internet",
    "Health Issues: Assistance with filling medical forms, using medical equipment",
    "Social Isolation: Encouragement and phone calls",
    "Help filling official forms",
@@ -104,6 +104,12 @@ city_entry = tk.Entry(name_frame, width=25, justify="left", bd=2)
 round_entry(city_entry)
 city_entry.grid(row=2, column=1)
 
+city_label2 = tk.Label(name_frame, text="Place: ", font=("Arial", 14), bg="#e6f2ff")
+set_ltr(city_label2)
+city_label2.grid(row=3, column=0, padx=10)
+city_entry2 = tk.Entry(name_frame, width=25, justify="left", bd=2)
+round_entry(city_entry2)
+city_entry2.grid(row=3, column=1)
 
 # Gender selection
 gender_label = tk.Label(scrollable_frame, text="Gender: ", font=("Arial", 14), bg="#e6f2ff")
@@ -138,20 +144,42 @@ age_spinbox.pack(pady=5, anchor="w")
 
 # Send button with colored background
 button = tk.Button(scrollable_frame, text="Send", font=("Arial", 14), bg="#28a745", fg="white", command=lambda: print(
-   f"First Name: {first_name_entry.get()}, Last Name: {last_name_entry.get()}, Place: {city_entry.get()}, Age: {age_spinbox.get()}, Gender: {gender_var.get()}, Problem: {listbox.get(listbox.curselection())}"))
+   f"First Name: {first_name_entry.get()}, Last Name: {last_name_entry.get()}, Place: {city_entry.get()}, Age: {age_spinbox.get()}, Gender: {gender_var.get()}, Problem: {listbox.get(listbox.curselection())}"
+   f""))
 button.pack(pady=20, padx=20, ipadx=10, ipady=5)
 
 
-# Checkbox to indicate if the user is a volunteer or needs help
-status_var = tk.StringVar()
-volunteer_checkbox = tk.Checkbutton(scrollable_frame, text="Volunteer", variable=status_var, onvalue="Volunteer",
-                                    offvalue="Survivor", bg="#e6f2ff", font=("Arial", 12), anchor="w")
-volunteer_checkbox.pack(pady=5, anchor="w")
+gender_label.bind('<Enter>', func=lambda e: button.config(
+        background=sl.txt_to_speech("gender")))
+
+problems_label.bind('<Enter>', func=lambda e: button.config(
+        background=sl.txt_to_speech(problems)))
 
 
-survivor_checkbox = tk.Checkbutton(scrollable_frame, text="Survivor", variable=status_var, onvalue="Survivor",
-                                   offvalue="Volunteer", bg="#e6f2ff", font=("Arial", 12), anchor="w")
-survivor_checkbox.pack(pady=5, anchor="w")
+first_name_label.bind('<Enter>', func=lambda e: button.config(
+        background=sl.txt_to_speech("First name")))
+
+
+last_name_label.bind('<Enter>', func=lambda e: button.config(
+        background=sl.txt_to_speech("Last name")))
+
+city_label.bind('<Enter>', func=lambda e: button.config(
+        background=sl.txt_to_speech("place")))
+city_label2.bind('<Enter>', func=lambda e: button.config(
+        background=sl.txt_to_speech("place")))
+
+age_spinbox.bind('<Enter>', func=lambda e: button.config(
+        background=sl.txt_to_speech("age")))
+
+
+male_checkbox.bind('<Enter>', func=lambda e: button.config(
+        background=sl.txt_to_speech("male")))
+
+female_checkbox.bind('<Enter>', func=lambda e: button.config(
+        background=sl.txt_to_speech("female")))
+
+button.bind('<Enter>', func=lambda e: button.config(
+        background=sl.txt_to_speech("send")))
 
 
 # Start main loop
