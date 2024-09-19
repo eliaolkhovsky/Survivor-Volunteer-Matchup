@@ -75,7 +75,7 @@ DAN = {"first_name": "Dan",
        }
 USERS = [BOB, LINA, DAN]
 
-BOS_POST = {"user": BOB,
+BOB_POST = {"user": BOB,
             "hours": (1200, 1600),
             "complaint": "I don't remember if she's dead and it's all dementia again but "
                          "I swear I saw her cheating on me!",
@@ -85,7 +85,7 @@ BOS_POST = {"user": BOB,
             }
 
 # variables
-posts = [BOS_POST]
+posts = [BOB_POST]
 
 
 def save_users():
