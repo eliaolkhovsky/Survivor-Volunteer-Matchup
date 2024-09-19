@@ -110,6 +110,10 @@ def load_posts():
     return db
 
 
+def filter_posts_by_location(dt, location):
+    return sorted(dt, key=lambda post: geographics.get_distance(post['user']['Location'], location))
+
+
 def filter_posts_by_problem(posts, problem_type):
     return [post for post in posts if post["type of problem"] == problem_type]
 
