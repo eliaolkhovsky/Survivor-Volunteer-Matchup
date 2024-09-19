@@ -81,8 +81,8 @@ male_checkbox = tk.Radiobutton(gender_frame, text="זכר", variable=gender_var,
 female_checkbox = tk.Radiobutton(gender_frame, text="נקבה", variable=gender_var, value="נקבה", bg="#e6f2ff",
                                  font=("Arial", 12), anchor="w")
 
-male_checkbox.grid(row=0, column=2, padx=5)
-female_checkbox.grid(row=0, column=1, padx=5)
+male_checkbox.grid(row=0, column=2, padx=10)
+female_checkbox.grid(row=0, column=1, padx=10)
 
 # סקרולר גילאים
 age_label = tk.Label(scrollable_frame, text=":גיל", font=("Arial", 14), bg="#e6f2ff")
