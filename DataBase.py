@@ -1,6 +1,8 @@
 import json
 import json as js
 
+import geographics
+
 # consts
 SURVIVOR = "survivor"
 VOLUNTEER = "volunteer"
@@ -110,10 +112,5 @@ def load_posts():
     return db
 
 
-save_posts()
-data = load_posts()
-print(data)
-
-
-def filter_posts(data):
-    pass
+def filter_posts(dt, user):
+    return sorted(dt, key=lambda post: geographics.get_distance(post['user']['Location'], user['Location']))
