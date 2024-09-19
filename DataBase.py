@@ -77,7 +77,7 @@ USERS = [BOB, LINA, DAN]
 
 BOS_POST = {"user": BOB,
             "hours": (1200, 1600),
-            "complaint": "I don't remember if she's dead and it's all dimension again but "
+            "complaint": "I don't remember if she's dead and it's all dementia again but "
                          "I swear I saw her cheating on me!",
             "title": "My wife is a bitch",
             "type of problem": MENTAL,
